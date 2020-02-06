@@ -132,4 +132,5 @@ dmypy.json
 
 supplement/
 *.swp
-*.pwb
+*.pdb
+*.pdb.gz

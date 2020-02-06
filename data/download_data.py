@@ -1,10 +1,18 @@
 from pathlib import Path
 from urllib import request
+from tqdm import tqdm
 
-test = 'test_ids.txt'
-train = 'train_ids.txt'
-test_list = Path(test).read_text().splitlines()
-train_list = Path(train).read_text().splitlines()
+test_folder = Path("test")
+train_folder = Path("train")
+test_list = Path('test_ids.txt').read_text().splitlines()
+train_list = Path('train_ids.txt').read_text().splitlines()
 
-for ids in test_list:
-    request.urlretrieve(f"http://files.rcsb.org/download/{ids}.pdb", f"{ids}.pdb")
+test_folder.mkdir(exist_ok=True)
+train_folder.mkdir(exist_ok=True)
+
+for ids in tqdm(test_list, desc=ids):
+    p = test_folder / f'{ids}.pdb.gz'
+    request.urlretrieve(f"http://files.rcsb.org/download/{ids}.pdb.gz", p)
+for ids in tqdm(train_list, desc=ids):
+    p = train_folder / f'{ids}.pdb.gz'
+    request.urlretrieve(f"http://files.rcsb.org/download/{ids}.pdb.gz", p)
