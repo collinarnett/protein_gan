@@ -10,9 +10,9 @@ train_list = Path('train_ids.txt').read_text().splitlines()
 test_folder.mkdir(exist_ok=True)
 train_folder.mkdir(exist_ok=True)
 
-for ids in tqdm(test_list, desc=ids):
+for ids in tqdm(test_list):
     p = test_folder / f'{ids}.pdb.gz'
     request.urlretrieve(f"http://files.rcsb.org/download/{ids}.pdb.gz", p)
-for ids in tqdm(train_list, desc=ids):
+for ids in tqdm(train_list):
     p = train_folder / f'{ids}.pdb.gz'
     request.urlretrieve(f"http://files.rcsb.org/download/{ids}.pdb.gz", p)
