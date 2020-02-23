@@ -11,8 +11,11 @@ test_folder.mkdir(exist_ok=True)
 train_folder.mkdir(exist_ok=True)
 
 for ids in tqdm(test_list):
-    p = test_folder / f'{ids}.pdb.gz'
-    request.urlretrieve(f"http://files.rcsb.org/download/{ids}.pdb.gz", p)
+    p = test_folder / f'{ids}.pdb'
+    if not p.exists():
+        request.urlretrieve(f"http://files.rcsb.org/download/{ids}.pdb", p)
 for ids in tqdm(train_list):
-    p = train_folder / f'{ids}.pdb.gz'
-    request.urlretrieve(f"http://files.rcsb.org/download/{ids}.pdb.gz", p)
+    p = train_folder / f'{ids}.pdb'
+    if not p.exists():
+        request.urlretrieve(f"http://files.rcsb.org/download/{ids}.pdb", p)
+
