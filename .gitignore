@@ -129,7 +129,8 @@ dmypy.json
 .pyre/
 
 # Personal Additions
-
+*.hdf5
+*.log
 supplement/
 *.swp
 *.pdb
