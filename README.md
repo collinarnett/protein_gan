@@ -1,4 +1,4 @@
-# Protien GAN
+# 🧬 Protien GAN
 
 This repository attempts to implement "Generative Modeling for Protein Structures" by Namrata Anand and Po-Ssu Huang. 
   
