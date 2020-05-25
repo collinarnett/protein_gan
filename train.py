@@ -50,6 +50,9 @@ def train(batch_size, num_epochs, lr, manualSeed, image_size, data_path):
         x = data_file[f"train_{image_size}"][:]
     data_len = len(x)
 
+    # Scale down values by 100
+    x = (x * 1) / 100
+
     # setting device on GPU if available, else CPU
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -232,7 +235,11 @@ def train(batch_size, num_epochs, lr, manualSeed, image_size, data_path):
                     fake = netG(fixed_noise).detach().cpu()
                 writer.add_image(
                     "Generator Output",
-                    vutils.make_grid(fake, padding=2, normalize=True),
+                    vutils.make_grid(
+                        (fake.clamp(min=0) + fake.clamp(min=0).permute(0, 1, 3, 2)) / 2,
+                        padding=2,
+                        normalize=True,
+                    ),
                     iters,
                 )
 
