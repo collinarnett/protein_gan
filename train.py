@@ -148,10 +148,10 @@ def train(batch_size, num_epochs, lr, manualSeed, image_size, data_path):
 
     # Create batch of latent vectors that we will use to visualize
     #  the progression of the generator
-    fixed_noise = torch.randn(64, nz, 1, 1, device=device)
+    fixed_noise = torch.randn(image_size, nz, 1, 1, device=device)
 
     # Establish convention for real and fake labels during training
-    real_label = 1
+    real_label = 0.9
     fake_label = 0
 
     # Setup Adam optimizers for both G and D
@@ -174,7 +174,7 @@ def train(batch_size, num_epochs, lr, manualSeed, image_size, data_path):
             # Train with all-real batch
             netD.zero_grad()
             # Format batch
-            # Unsqueezed dim one to convert [128, 64, 64] to [128, 1, 64, 64] to conform to D architecture
+            # Unsqueezed dim 1 to convert [batch_size, image_size, image_size] to [batch_size, 1, image_size, image_size] to conform to D architecture
             real_cpu = (data.unsqueeze(dim=1).type(torch.FloatTensor)).to(device)
             b_size = real_cpu.size(0)
             label = torch.full((b_size,), real_label, device=device)
